@@ -1,4 +1,4 @@
 # Setup variables
 
-FATHER = "C:\\Users\\aless\\Desktop\\Pullmino"
-ENDPOINT = "C:\\Users\\aless\\Dekstop\\Endpoint"
+FATHER = "C:\\Users\\aless\\Documents\\Pullmino"
+ENDPOINT = "C:\\Users\\aless\\Documents\\Endpoint"
