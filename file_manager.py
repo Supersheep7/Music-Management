@@ -9,34 +9,41 @@ import os
 
 def read_and_move(og_path, file):
 
-    # Our file is an audio one?
-
     if file.lower().endswith(('.mp3', '.flac', '.m4a', '.mp4', '.wav', '.wma', '.aac')):
         
         # Get metadata
 
         audio = TinyTag.get(str(f"{og_path}"))
         
-        # Create artist folder
-        
         if not exists(f"{module.ENDPOINT}\\{audio.artist}"):
+            
             create(f"{module.ENDPOINT}", f"{audio.artist}")
-        
-        # Create album folder
 
         if not exists(f"{module.ENDPOINT}\\{audio.artist}\\{audio.album}"):
+            
             create(f"{module.ENDPOINT}\\{audio.artist}", f"{audio.album}")
-
-        # Move file in album folder
 
         shutil.move(og_path, f"{module.ENDPOINT}\\{audio.artist}\\{audio.album}\\{file}")   
 
         return
 
-    # Nah, burn it
+    # Media manager (It should work better...)
 
     else:
-            os.remove(og_path)
+
+        dir_finder = og_path.rsplit("\\")
+        directory = dir_finder[-2]
+
+        if not exists(f"{module.ENDPOINT}\\_Media"):
+
+            create(f"{module.ENDPOINT}", "_Media")
+
+        if not exists(f"{module.ENDPOINT}\\_Media\\{directory}"):
+
+            create(f"{module.ENDPOINT}\\_Media", f"{directory}")
+
+        shutil.move(og_path, f"{module.ENDPOINT}\\_Media\\{directory}\\{file}")
+
 
 # Submain create function
 

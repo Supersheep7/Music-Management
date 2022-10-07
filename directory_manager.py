@@ -12,7 +12,7 @@ def organize(folder_path):
 
     list = os.listdir(folder_path)
 
-    # Set counter: C:\\Users\\aless\\Documents\\Pullmino
+    # Set counter: C:\\Users\\user\\Documents\\father
 
     dir_counter = folder_path
 
@@ -20,11 +20,7 @@ def organize(folder_path):
 
     while len(list) > 0:
 
-    # Loop through folder
-
         for child in list:
-
-            # If the child is a folder
 
             if os.path.isdir(f"{dir_counter}\\{child}"):
 
@@ -36,11 +32,7 @@ def organize(folder_path):
 
                 organize(dir_counter)
 
-            # Else if the child is a file
-
             elif os.path.isfile(f"{dir_counter}\\{child}"):
-
-                # Run read_and_create func
 
                 file_manager.read_and_move(f"{dir_counter}\\{child}", child)
                 
@@ -48,11 +40,7 @@ def organize(folder_path):
 
                 organize(f"{module.FATHER}")
 
-            # Else if the child is something else
-
             else:
-                
-                # Nothing to see here
 
                 return 202
 
@@ -60,12 +48,11 @@ def organize(folder_path):
 
     else:
 
-        # Back to C:\\Users\\aless\\Documents\\Pullmino
-        # We need the second condition to avoid module.FATHER destruction
+        # Back to C:\\Users\\user\\Documents\\father
     
         os.chdir(f"{module.FATHER}")
     
-        # Remove folder
+        # Remove last folder
 
         os.rmdir(dir_counter)
 
@@ -76,12 +63,10 @@ def organize(folder_path):
             # Recursion
 
             organize(f"{module.FATHER}")
-
-        # Yeah
         
         else: 
 
-            print ("The End")
+            print (f"Done! You can find your results in {module.ENDPOINT}")
             return 200
 
 

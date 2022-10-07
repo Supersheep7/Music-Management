@@ -1,20 +1,28 @@
 from genericpath import exists
-import module
 import os
+import module
 import directory_manager    
-
-# TODO: Fix the media problem
-# TODO: Make it for everyone
-# TODO: Check line 53 in organize.py
 
 def main():
 
-    father = input("Who's your daddy?")
-    endpoint = input("What's your endpoint?")
+    # Prompt user for directory names
+
+    module.username
+    module.father
+
+    # Escape bad input
+
+    if not exists(module.FATHER):
+        print("There's no such directory!\nPlease give me a directory to manage, it should be in your \"Documents\" folder")
+        return
+    if len(os.listdir(module.FATHER)) <= 0:
+        print("That folder is empty! Please choose a populated folder")
+        return
+    module.endpoint
 
     # Make endpoint directory
 
-    path = os.path.join("C:\\Users\\aless\\Documents\\", "Endpoint")
+    path = os.path.join(f"C:\\Users\\{module.username}\\Documents\\", f"{module.endpoint}")
     if not exists(path):
         os.mkdir(path)
 
