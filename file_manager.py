@@ -4,6 +4,7 @@ import module
 import shutil
 from tinytag import TinyTag
 import os
+import re
 
 # Main read func
 
@@ -14,16 +15,36 @@ def read_and_move(og_path, file):
         # Get metadata
 
         audio = TinyTag.get(str(f"{og_path}"))
-        
-        if not exists(f"{module.ENDPOINT}\\{audio.artist}"):
-            
-            create(f"{module.ENDPOINT}", f"{audio.artist}")
 
-        if not exists(f"{module.ENDPOINT}\\{audio.artist}\\{audio.album}"):
-            
-            create(f"{module.ENDPOINT}\\{audio.artist}", f"{audio.album}")
+        # Escape bad meta characters, no meta or bad whitespace
 
-        shutil.move(og_path, f"{module.ENDPOINT}\\{audio.artist}\\{audio.album}\\{file}")   
+        if audio.artist is None:
+            
+            artistname = "Unknown Artist"
+
+        else:
+
+            artistname = re.sub(r"[/:*?\"<>|\\]", "-", audio.artist.strip())
+
+        if audio.album is None:
+
+            albumname = "Unknown Album"
+
+        else:
+
+            albumname = re.sub(r"[/:*?\"<>|\\]", "-", audio.album.strip())
+
+        # Create folders, then move file there
+
+        if not exists(f"{module.ENDPOINT}\\{artistname}"):
+            
+            create(f"{module.ENDPOINT}", f"{artistname}")
+
+        if not exists(f"{module.ENDPOINT}\\{artistname}\\{albumname}"):
+            
+            create(f"{module.ENDPOINT}\\{artistname}", f"{albumname}")
+
+        shutil.move(og_path, f"{module.ENDPOINT}\\{artistname}\\{albumname}\\{file}")   
 
         return
 
